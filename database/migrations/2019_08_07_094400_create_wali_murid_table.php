@@ -15,15 +15,15 @@ class CreateWaliMuridTable extends Migration
     {
         Schema::create('wali_murid', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('id_wali');
-            $table->string('nisn_siswa');
-            $table->string('wali_nama_ayah');
-            $table->string('wali_pekerjaan_ayah');
-            $table->string('wali_nama_ibu');
-            $table->string('wali_pekerjaan_ibu');
-            $table->string('alamat');
-            $table->bigInteger('telepon');
+            $table->unsignedBigInteger('siswa_id');
+            $table->string('nama_ayah');
+            $table->string('pekerjaan_ayah');
+            $table->string('nama_ibu');
+            $table->string('pekerjaan_ibu');
+            $table->text('alamat');
+            $table->integer('notelp')->unsigned();
 
+            $table->foreign('siswa_id')->references('id')->on('siswa');
             $table->timestamps();
         });
     }

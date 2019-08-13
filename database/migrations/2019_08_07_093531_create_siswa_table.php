@@ -15,12 +15,13 @@ class CreateSiswaTable extends Migration
     {
         Schema::create('siswa', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('nisn_siswa');
-            $table->string('kompetensi_kode');
-            $table->string('nama_siswa');
-            $table->string('alamat_siswa');
-            $table->date('tgl_lahir_siswa');
-            $table->string('foto_siswa');
+            $table->string('NISN')->unique();
+            $table->unsignedBigInteger('kompetensi_id');
+            $table->string('nama');
+            $table->text('alamat');
+            $table->date('tgl_lahir');
+            $table->string('foto')->nullable();
+            $table->foreign('kompetensi_id')->references('id')->on('kompetensi_keahlian');
             $table->timestamps();
         });
     }

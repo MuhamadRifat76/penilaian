@@ -15,14 +15,14 @@ class CreateNilaiTable extends Migration
     {
         Schema::create('nilai', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('siswa_nisn');
-            $table->string('guru_kode');
-            $table->string('sk_kode');
-            $table->bigInteger('nilai_angka');
-            $table->string('nilai_huruf');
-            $table->foreign('siswa_id')->references('id')->on('siswas');
-            $table->foreign('guru_id')->references('id')->on('gurus');
-            $table->foreign('sk_id')->references('id')->on('standar_kompetensis');
+            $table->unsignedBigInteger('siswa_id');
+            $table->unsignedBigInteger('guru_id');
+            $table->unsignedBigInteger('sk_id');
+            $table->unsignedBigInteger('nilai_angka');
+            $table->text('nilai_huruf');
+            $table->foreign('siswa_id')->references('id')->on('siswa');
+            $table->foreign('guru_id')->references('id')->on('guru');
+            $table->foreign('sk_id')->references('id')->on('standar_kompetensi');
             $table->timestamps();
         });
     }

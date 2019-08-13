@@ -15,12 +15,14 @@ class CreateGuruTable extends Migration
     {
         Schema::create('guru', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('guru_kode');
-            $table->string('kompetensi_kode');
-            $table->string('guru_nip');
-            $table->string('guru_nama');
-            $table->string('alamat');
-            $table->bigInteger('telepone');
+            $table->string('kode')->unique();
+            $table->unsignedBigInteger('kompetensi_id');
+            $table->string('NIP')->unique();
+            $table->string('nama');
+            $table->text('alamat');
+            $table->integer('notelp')->unsigned();
+            
+            $table->foreign('kompetensi_id')->references('id')->on('kompetensi_keahlian');
             $table->timestamps();
         });
     }

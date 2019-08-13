@@ -15,13 +15,14 @@ class CreateStandarKompetensiTable extends Migration
     {
         Schema::create('standar_kompetensi', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('sk_kode');
-            $table->string('kompetensi_kode');
-            $table->string('sk_nama');
-            $table->string('sk_kelas');
-            $table->foreign('kompetensi_id')->references('id')->on('kompetensi_keahlians');
+            $table->string('kode')->unique();
+            $table->unsignedBigInteger('kompetensi_id');
+            $table->string('nama');
+            $table->text('kelas');
+            $table->foreign('kompetensi_id')->references('id')->on('kompetensi_keahlian');
             $table->timestamps();
         });
+    
     }
 
     /**
