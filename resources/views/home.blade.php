@@ -14,7 +14,7 @@
                         </div>
                     @endif
 
-                    You are logged in!
+                    hey tayi eh tayo
                 </div>
             </div>
         </div>
