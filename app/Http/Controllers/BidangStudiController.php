@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\bidangstudi;
-use file;
+use App\BidangStudi;
+use Session;
 class BidangStudiController extends Controller
 {
     /**
@@ -14,8 +14,8 @@ class BidangStudiController extends Controller
      */
     public function index()
     {
-        $bidangstudi = bidangstudi::all();  
-        return view('bidangstudi.index',compact('bidangstudi'));
+        $bidangstudi = BidangStudi::all();  
+        return view('backend.bidangstudi.index',compact('bidangstudi'));
       }
 
     /**
@@ -25,8 +25,8 @@ class BidangStudiController extends Controller
      */
     public function create()
     {
-        $bidangstudi = bidangstudi::all();  
-        return view('bidangstudi.create',compact('bidangstudi'));
+        $bidangstudi = BidangStudi::all();  
+        return view('backend.bidangstudi.create',compact('bidangstudi'));
     }
 
     /**
@@ -37,27 +37,14 @@ class BidangStudiController extends Controller
      */
     public function store(Request $request)
     {
-        $bidangstudi = new bidangstudi();
+        $bidangstudi = new BidangStudi();
         $bidangstudi->bidang_kode = $request->bidang_kode;
         $bidangstudi->bidang_nama = $request->bidang_nama;
-        
-        //foto
-        if ($request->hasFile('foto')) {
-            $file = $request->file('foto');
-            $path = public_path() .'/assets/img';
-            $filename = str_random(6) . '_'
-            . $file->getClientOriginalName();
-            $upload = $file->move(
-                $path,$filename
-            );
-            $bidangstudi->foto = $filename;
-        }
         $bidangstudi->save();
-        Session::flash("flash_notification",[
-            "level" => "success",
-            "message" => "Berhasil menyimpan<b>"
-                         . $bidangstudi->bidang_nama."</b>"
-        ]);
+       Session::flash("flash_notification",[
+           "level" => "success",
+           "message" => "Berhasil menyimpan vosque <b>$bidangstudi->bidang_nama</b>"
+       ]);
         return redirect()->route('bidangstudi.index');
     }
 
@@ -69,7 +56,7 @@ class BidangStudiController extends Controller
      */
     public function show($id)
     {
-        $kategori = kategori::findOrfail($id);
+        $bidangstudi = BidangStudi::findOrfail($id);
         $response = [
             'success' => true,
             'data' => $user,
@@ -86,7 +73,7 @@ class BidangStudiController extends Controller
      */
     public function edit($id)
     {
-        $bidangstudi = bidangstudi::all();  
+        $bidangstudi = BidangStudi::findOrfail($id);  
         return view('bidangstudi.edit',compact('bidangstudi'));
     }
 
@@ -100,7 +87,7 @@ class BidangStudiController extends Controller
     public function update(Request $request, $id)
     {
         
-        $bidangstudi = new bidangstudi();
+        $bidangstudi = bidangstudi::findOrfail($id);
         $bidangstudi->bidang_kode = $request->bidang_kode;
         $bidangstudi->bidang_nama = $request->bidang_nama;
 
@@ -121,14 +108,14 @@ class BidangStudiController extends Controller
      */
     public function destroy($id)
     {
-        $kategori = kategori::findOrfail($id);
+        $bidangstudi = BidangStudi::findOrfail($id);
     
         Session::flash("flash_notification",[
             "level" => "Success",
             "message" => "Berhasil menghapus<b>"
-                         . $kategori->nama_kategori."</b>"
+                         . $bidangstudi->bidang_nama."</b>"
         ]);
-        return redirect()->route('kategori.index');    
+        return redirect()->route('bidangstudi.index');    
     }
     
 }

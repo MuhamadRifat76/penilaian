@@ -21,7 +21,7 @@ Route::get('/', function () {
 
     Route::group(['prefix' =>'backend','middleware'=>['auth','role:admin']],function(){
     Route::get('/',function(){
-        return 'hallo';
+    return view('backend.bidangstudi.index');
     });
     Route::resource('user','UserController');
     Route::resource('bidangstudi','BidangStudiController');

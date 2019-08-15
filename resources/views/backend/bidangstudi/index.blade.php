@@ -10,7 +10,7 @@
                     {{-- <form action="">
                     </form> --}}
                         <center>                                    	                                
-                            <a href="{{ route('peminjam.create') }}"
+                            <a href="{{ route('bidangstudi.create') }}"
                             class="la la-cloud-upload btn btn-info btn-rounded btn-floating btn-outline">&nbsp;Tambah Data
                         </a>
                 </center>
@@ -18,30 +18,32 @@
                     <table id="bs4-table" class="table table-striped table-bordered" style="width:100%">
                        <thead>
                             <tr>
-                                <th>kode</th>
-                                <th>nama</th>
-                                <th>alamat</th>
-                                <th>telp</th>
-                                <th>foto</th>
+
+                                
+                                <th>Kode</th>
+                                <th>Nama</th>
+                                
                                 <th style="text-align: center;">Aksi</th>
                             </tr>
                         </thead>
-                        <tbody class="table-peminjam">
-                                @foreach ($peminjam as $data)
+                        <tbody class="table-bidangstudi">
+                                @foreach ($bidangstudi as $data)
                                 <tr>
-                                    <td>{{$data->peminjam_kode}}</td>
-                                    <td>{{$data->peminjam_nama}}</td>
-                                    <td>{{$data->peminjam_alamat}}</td>
-                                    <td>{{$data->peminjam_telp}}</td>
-                                    <td><img src="{{asset('assets/img/artikel/' .$data->foto. '')}}"
-                                        style="width:250px; height:250px;" alt="Foto"></td>
+                                
+                                    <td>{{$data->bidang_kode}}</td>
+                                    <td>{{$data->bidang_nama}}</td>
+                                    
                                    
                                     <td style="text-align: center;">
-                                        <form action="{{route('artikel.destroy', $data->id)}}" method="post">
+                                        <form action="{{route('bidangstudi.destroy', $data->id)}}" method="post">
                                             {{csrf_field()}}
-                                        <a href="{{route('artikel.edit', $data->id)}}"
+                                        <a href="{{route('bidangstudi.edit', $data->id)}}"
                                             class="zmdi zmdi-edit btn btn-warning btn-rounded btn-floating btn-outline"> Edit
                                         </a>
+                                        <a href="{{route('bidangstudi.show', $data->id)}}"
+                                                class="zmdi zmdi-edit btn btn-warning btn-rounded btn-floating btn-outline"> show
+                                            </a>
+
                                         <input type="hidden" name="_method" value="DELETE">
                                             <button type="submit" class="zmdi zmdi-delete btn-rounded btn-floating btn btn-dangerbtn btn-danger btn-outline"> Delete</button>
                                         </form>
